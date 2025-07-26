@@ -17,10 +17,10 @@ don't need to install them separately.
 ### ESLint Configuration (JavaScript)
 
 The ESLint config is exported as a JavaScript module. In your
-`eslint.config.js`:
+`eslint.config.mjs`:
 
 ```javascript
-import coreConfig from "@mjakl/core/eslint.js";
+import coreConfig from "@mjakl/core/eslint.config.mjs";
 
 export default [
   ...coreConfig,
@@ -28,23 +28,29 @@ export default [
 ];
 ```
 
-### Prettier Configuration (JSON)
+### Prettier Configuration
 
-The Prettier config is exported as a JSON file. In your `.prettierrc`:
+The Prettier config is exported as a JavaScript module. You have two options:
+
+#### Option 1: Direct usage in package.json
 
 ```json
 {
-  "extends": "@mjakl/core/prettierrc"
+  "prettier": "@mjakl/core/prettier.config.mjs"
 }
 ```
 
-Or if you need to customize:
+#### Option 2: Extend in your own config
 
-```json
-{
-  "extends": "@mjakl/core/prettierrc"
+Create a `prettier.config.mjs`:
+
+```javascript
+import coreConfig from "@mjakl/core/prettier.config.mjs";
+
+export default {
+  ...coreConfig,
   // Your custom rules here
-}
+};
 ```
 
 ### Utilities

@@ -22,13 +22,13 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./eslint.js": "./eslint.config.js",
-    "./prettierrc": "./.prettierrc"
+    "./eslint.config.mjs": "./eslint.config.mjs",
+    "./prettier.config.mjs": "./prettier.config.mjs"
   },
   "files": [
     "src",
     "eslint.config.js",
-    ".prettierrc"
+    "prettier.config.mjs"
   ],
   "peerDependencies": {
     "typescript": "^5"

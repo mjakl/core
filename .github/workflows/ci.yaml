@@ -1,0 +1,19 @@
+name: CI/CD
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Install just command runner
+      - uses: extractions/setup-just@v3
+
+      # Install bun runtime
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install
+      - run: just lint
+      - run: just test

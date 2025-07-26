@@ -32,7 +32,7 @@
     "prettier.config.mjs"
   ],
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.8.3"
   },
   "type": "module"
 }

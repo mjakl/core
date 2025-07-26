@@ -2,6 +2,7 @@
  * @see https://prettier.io/docs/configuration
  * @see https://github.com/IanVS/prettier-plugin-sort-imports
  * @see https://www.npmjs.com/package/prettier-plugin-sql
+ * @see https://github.com/tailwindlabs/prettier-plugin-tailwindcss
  * @type {import("prettier").Config}
  */
 export default {

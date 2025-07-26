@@ -5,7 +5,11 @@
  * @type {import("prettier").Config}
  */
 export default {
-  plugins: ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-sql"],
+  plugins: [
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-sql",
+    "prettier-plugin-tailwindcss",
+  ],
   proseWrap: "preserve",
   overrides: [
     {

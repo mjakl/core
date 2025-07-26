@@ -7,7 +7,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   // ********** What not to lint **********
   {
-    ignores: ["*", "!src", "!src/**"],
+    ignores: ["*", "!src/**", "!tests/**"],
   },
 
   // ********** JavaScript settings **********

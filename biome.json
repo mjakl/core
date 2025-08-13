@@ -22,6 +22,13 @@
           "level": "error",
           "fix": "safe"
         }
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "options": {},
+          "level": "error",
+          "fix": "safe"
+        }
       }
     }
   },

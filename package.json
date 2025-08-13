@@ -1,9 +1,10 @@
 {
   "name": "@mjakl/core",
-  "description": "Shared ESLint, Prettier configs and utilities for @mjakl projects",
-  "version": "0.1.0",
+  "description": "Shared Biome, ESLint, Prettier configs and utilities for @mjakl projects",
+  "version": "0.1.1",
   "author": "mjakl",
   "dependencies": {
+    "@biomejs/biome": "2.1.4",
     "@eslint/js": "9.32.0",
     "@ianvs/prettier-plugin-sort-imports": "4.5.1",
     "eslint": "9.32.0",
@@ -23,13 +24,17 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./biome.json": "./biome.json",
     "./eslint.config.mjs": "./eslint.config.mjs",
-    "./prettier.config.mjs": "./prettier.config.mjs"
+    "./prettier_nobiome.config.mjs": "./prettier_nobiome.config.mjs",
+    "./prettier_biome.config.mjs": "./prettier_biome.config.mjs"
   },
   "files": [
     "src",
+    "biome.json",
     "eslint.config.js",
-    "prettier.config.mjs"
+    "prettier_nobiome.config.mjs",
+    "prettier_biome.config.mjs"
   ],
   "peerDependencies": {
     "typescript": "^5.8.3"

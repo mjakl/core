@@ -1,7 +1,7 @@
 # @mjakl/core
 
-Shared ESLint and Prettier configurations, plus common utilities for @mjakl
-projects.
+Shared ESLint, Prettier, and Biome configurations, plus common utilities for
+@mjakl projects.
 
 ## Installation
 
@@ -30,27 +30,54 @@ export default [
 
 ### Prettier Configuration
 
-The Prettier config is exported as a JavaScript module. You have two options:
+Two Prettier configurations are available:
 
-#### Option 1: Direct usage in package.json
+#### For projects using Biome (recommended)
 
 ```json
 {
-  "prettier": "@mjakl/core/prettier.config.mjs"
+  "prettier": "@mjakl/core/prettier_biome.config.mjs"
 }
 ```
 
-#### Option 2: Extend in your own config
-
-Create a `prettier.config.mjs`:
+Or create your own `prettier.config.mjs`:
 
 ```javascript
-import coreConfig from "@mjakl/core/prettier.config.mjs";
+import coreConfig from "@mjakl/core/prettier_biome.config.mjs";
 
 export default {
   ...coreConfig,
   // Your custom rules here
 };
+```
+
+#### For projects not using Biome
+
+```json
+{
+  "prettier": "@mjakl/core/prettier_nobiome.config.mjs"
+}
+```
+
+Or create your own `prettier.config.mjs`:
+
+```javascript
+import coreConfig from "@mjakl/core/prettier_nobiome.config.mjs";
+
+export default {
+  ...coreConfig,
+  // Your custom rules here
+};
+```
+
+### Biome Configuration
+
+For projects using Biome for linting and formatting:
+
+```json
+{
+  "extends": ["@mjakl/core/biome.json"]
+}
 ```
 
 ### Utilities
@@ -76,12 +103,28 @@ This package requires TypeScript 5+ as a peer dependency.
 - Prettier integration
 - Sensible defaults for modern TypeScript projects
 
+### Biome Configuration
+
+- Fast, comprehensive linting and formatting
+- TypeScript support with strict rules
+- Import organization and validation
+- Consistent code style enforcement
+
 ### Prettier Configuration
+
+Two variants available:
+
+#### Biome-compatible version
+
+- Minimal configuration that works with Biome
+- Focused on non-overlapping formatting rules
+
+#### Standalone version
 
 - Import sorting with `@ianvs/prettier-plugin-sort-imports`
 - SQL formatting support for PostgreSQL
 - Markdown prose wrapping
-- Consistent formatting rules
+- Comprehensive formatting rules
 
 ### Utilities
 

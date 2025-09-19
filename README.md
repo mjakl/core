@@ -83,10 +83,19 @@ For projects using Biome for linting and formatting:
 ### Utilities
 
 ```typescript
-import { sleep } from "@mjakl/core";
+import { createClock, systemClock } from "@mjakl/core";
 
-// Sleep for 1 second
-await sleep(1000);
+const clock = createClock({
+  now: () => new Date("2024-12-31T23:59:59.000Z"),
+});
+
+// Use the injected adapter in tests or other environments
+const valueBefore = clock.monotonicMs();
+await clock.sleep(100);
+const valueAfter = clock.monotonicMs();
+
+// Use the default system clock when you do not need to override behavior
+const current = systemClock.now();
 ```
 
 ## Peer Dependencies
@@ -130,7 +139,10 @@ Two variants available:
 
 Currently includes:
 
-- `sleep(ms)` - Promise-based sleep function
+- `systemClock` - default implementation with `now`, `sleep`, and `monotonicMs`
+- `createClock(adapter)` - helper for building testable clock adapters
+- `sleep(ms)` - Promise-based sleep function (**deprecated**; use
+  `systemClock.sleep` or `createClock`)
 - String utilities (check src/utils/strings.ts for available functions)
 
 ## Development Notes

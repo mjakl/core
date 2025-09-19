@@ -1,4 +1,4 @@
-import { systemClock } from "@/utils/clock.js";
+import { systemClock } from "./clock";
 
 /**
  * @deprecated Use `systemClock.sleep(ms)` or a custom clock created with `createClock` instead.

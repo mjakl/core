@@ -28,6 +28,32 @@ export default [
 ];
 ```
 
+#### Suggested local override: project-specific rules
+
+Want to keep using path aliases or layer on app-specific policies? Extend the
+base configuration in your project:
+
+```javascript
+import baseConfig from "@mjakl/core/eslint.config.mjs";
+import noRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
+
+// Extend base rules to forbid `className` in JSX (use `class` with Hono JSX)
+export default [
+  ...baseConfig,
+  {
+    plugins: {
+      "no-relative-import-paths": noRelativeImportPaths,
+    },
+    rules: {
+      "no-relative-import-paths/no-relative-import-paths": [
+        "warn",
+        { allowSameFolder: false, rootDir: "src", prefix: "@" },
+      ],
+    },
+  },
+];
+```
+
 ### Prettier Configuration
 
 Two Prettier configurations are available:
@@ -108,7 +134,7 @@ This package requires TypeScript 5+ as a peer dependency.
 
 - TypeScript strict mode with type checking
 - Import sorting and validation
-- No relative import paths (enforces `@/` prefix)
+- Plays nicely with custom rule layers in consuming projects
 - Prettier integration
 - Sensible defaults for modern TypeScript projects
 

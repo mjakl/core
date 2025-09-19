@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { expectType } from "ts-expect";
-import { s } from "@/utils/strings";
+import { s } from "./strings";
 
 describe("s template literal tag", () => {
   test("converts primitives to strings", () => {

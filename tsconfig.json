@@ -27,10 +27,7 @@
     "noPropertyAccessFromIndexSignature": true,
 
     "rootDir": "src",
-    "outDir": "dist",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "outDir": "dist"
   },
   "include": ["src"]
 }

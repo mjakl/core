@@ -1,7 +1,6 @@
 import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 import importPlugin from "eslint-plugin-import-x";
-import noRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
@@ -85,18 +84,6 @@ export default tseslint.config(
     },
     settings: {
       "import-x/core-modules": ["bun:test"],
-    },
-  },
-
-  {
-    plugins: {
-      "no-relative-import-paths": noRelativeImportPaths,
-    },
-    rules: {
-      "no-relative-import-paths/no-relative-import-paths": [
-        "warn",
-        { allowSameFolder: false, rootDir: "src", prefix: "@" },
-      ],
     },
   },
 

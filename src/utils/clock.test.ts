@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { createClock, systemClock } from "@/utils/clock";
+import { createClock, systemClock } from "./clock";
 
 describe("clock", () => {
   test("systemClock exposes concrete implementations", async () => {

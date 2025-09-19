@@ -1,5 +1,5 @@
-export type { Clock, ClockAdapter } from "./utils/clock.js";
-export { createClock, systemClock } from "./utils/clock.js";
+export type { Clock, ClockAdapter } from "./utils/clock";
+export { createClock, systemClock } from "./utils/clock";
 
-export { sleep } from "./utils/sleep.js";
-export * from "./utils/strings.js";
+export { sleep } from "./utils/sleep";
+export * from "./utils/strings";

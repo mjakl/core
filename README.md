@@ -54,6 +54,17 @@ export default [
 ];
 ```
 
+#### Optional heavy checks
+
+Set `ESLINT_HEAVY_CHECKS=true` when running ESLint to enable slower rules such
+as the circular import detector, for example:
+
+```bash
+ESLINT_HEAVY_CHECKS=true npm run lint
+```
+
+Leave the variable unset for regular local lint runs to keep them fast.
+
 ### Prettier Configuration
 
 Two Prettier configurations are available:

@@ -14,18 +14,47 @@
   },
   "linter": {
     "enabled": true,
+    "includes": ["src/**", "tests/**"],
     "rules": {
       "recommended": true,
+      "complexity": {
+        "useArrowFunction": "warn"
+      },
       "correctness": {
         "noUnusedImports": {
-          "options": {},
           "level": "error",
           "fix": "safe"
-        }
+        },
+        "noUnusedVariables": "warn"
+      },
+      "style": {
+        "noParameterAssign": "warn",
+        "useConsistentMemberAccessibility": {
+          "level": "warn",
+          "options": {
+            "accessibility": "noPublic"
+          }
+        },
+        "useExportType": "warn",
+        "useImportType": {
+          "level": "warn",
+          "options": {
+            "style": "inlineType"
+          }
+        },
+        "useTemplate": "warn"
+      },
+      "suspicious": {
+        "noConsole": "warn"
       },
       "nursery": {
+        "useConsistentTypeDefinitions": {
+          "level": "warn",
+          "options": {
+            "style": "type"
+          }
+        },
         "useSortedClasses": {
-          "options": {},
           "level": "error",
           "fix": "safe"
         }

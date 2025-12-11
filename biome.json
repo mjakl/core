@@ -51,7 +51,10 @@
         }
       },
       "suspicious": {
-        "noConsole": "warn"
+        "noConsole": {
+          "level": "warn",
+          "fix": "none"
+        }
       },
       "nursery": {
         "useSortedClasses": {

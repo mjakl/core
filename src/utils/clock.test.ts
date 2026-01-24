@@ -11,6 +11,12 @@ describe("clock", () => {
     expect(end).toBeGreaterThanOrEqual(start);
   });
 
+  test("systemClock monotonicMs returns integer milliseconds", () => {
+    const value = systemClock.monotonicMs();
+
+    expect(Number.isInteger(value)).toBe(true);
+  });
+
   test("createClock uses adapter overrides", async () => {
     const expectedDate = new Date("2025-01-01T00:00:00.000Z");
     let sleptFor: number | undefined;

@@ -1,6 +1,15 @@
 export type Clock = {
+  /**
+   * Returns the current wall-clock time.
+   */
   now(): Date;
+  /**
+   * Resolves after at least the provided duration in milliseconds.
+   */
   sleep(ms: number): Promise<void>;
+  /**
+   * Returns a monotonically increasing timestamp in integer milliseconds.
+   */
   monotonicMs(): number;
 };
 
@@ -15,7 +24,7 @@ const defaultMonotonicMs = (): number => {
     typeof performance !== "undefined" &&
     typeof performance.now === "function"
   ) {
-    return performance.now();
+    return Math.trunc(performance.now());
   }
 
   return Date.now();

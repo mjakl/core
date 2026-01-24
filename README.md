@@ -135,6 +135,8 @@ const valueAfter = clock.monotonicMs();
 const current = systemClock.now();
 ```
 
+`monotonicMs()` always returns integer milliseconds (no fractional values).
+
 ## Peer Dependencies
 
 This package requires TypeScript 5+ as a peer dependency.

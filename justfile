@@ -18,4 +18,4 @@ fix:
 
 update:
     bun update --interactive
-
+    bun run bimee migrate --write

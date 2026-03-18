@@ -31,7 +31,7 @@
   "files": [
     "src",
     "biome.json",
-    "eslint.config.js",
+    "eslint.config.mjs",
     "prettier_nobiome.config.mjs",
     "prettier_biome.config.mjs"
   ],

@@ -29,9 +29,6 @@ importers:
       eslint-plugin-import-x:
         specifier: 4.16.2
         version: 4.16.2(@typescript-eslint/utils@8.57.1(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)
-      eslint-plugin-no-relative-import-paths:
-        specifier: 1.6.1
-        version: 1.6.1
       prettier:
         specifier: 3.8.1
         version: 3.8.1
@@ -754,9 +751,6 @@ packages:
         optional: true
       eslint-import-resolver-node:
         optional: true
-
-  eslint-plugin-no-relative-import-paths@1.6.1:
-    resolution: {integrity: sha512-YZNeOnsOrJcwhFw0X29MXjIzu2P/f5X2BZDPWw1R3VUYBRFxNIh77lyoL/XrMU9ewZNQPcEvAgL/cBOT1P330A==}
 
   eslint-scope@9.1.2:
     resolution: {integrity: sha512-xS90H51cKw0jltxmvmHy2Iai1LIqrfbw57b79w/J7MfvDfkIkFZ+kj6zC3BjtUwh150HsSSdxXZcsuv72miDFQ==}
@@ -1972,8 +1966,6 @@ snapshots:
       '@typescript-eslint/utils': 8.57.1(eslint@10.0.3)(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
-
-  eslint-plugin-no-relative-import-paths@1.6.1: {}
 
   eslint-scope@9.1.2:
     dependencies:

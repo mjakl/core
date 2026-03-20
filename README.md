@@ -28,31 +28,37 @@ export default [
 ];
 ```
 
-#### Suggested local override: project-specific rules
+#### Suggested local override: ban parent-relative imports with Biome
 
-Want to keep using path aliases or layer on app-specific policies? Extend the
-base configuration in your project:
+Want to keep same-folder imports like `./foo` but forbid parent-relative imports
+like `../foo`? Add a project-level Biome rule:
 
-```javascript
-import baseConfig from "@mjakl/core/eslint.config.mjs";
-import noRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
-
-// Extend base rules to forbid `className` in JSX (use `class` with Hono JSX)
-export default [
-  ...baseConfig,
-  {
-    plugins: {
-      "no-relative-import-paths": noRelativeImportPaths,
-    },
-    rules: {
-      "no-relative-import-paths/no-relative-import-paths": [
-        "warn",
-        { allowSameFolder: false, rootDir: "src", prefix: "@" },
-      ],
-    },
-  },
-];
+```json
+{
+  "extends": ["@mjakl/core/biome.json"],
+  "linter": {
+    "rules": {
+      "style": {
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "patterns": [
+              {
+                "group": ["../**"],
+                "message": "Use alias or module imports instead of parent-relative imports."
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
 ```
+
+Use `["./**", "../**"]` if you want to ban all relative imports. Unlike the old
+ESLint plugin, Biome enforces the policy but does not auto-rewrite imports to
+your alias style.
 
 #### Optional heavy checks
 

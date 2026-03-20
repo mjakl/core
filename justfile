@@ -2,20 +2,20 @@ default:
     @just --list
 
 test:
-    bun test --coverage
+    pnpm exec vitest run --coverage
 
 lint:
-    bun run biome check .
-    bun run prettier --check "**/*.{md,sql}"
-    bun run eslint .
-    bun run tsc --noEmit
+    pnpm exec biome check .
+    pnpm exec prettier --check "**/*.{md,sql}"
+    pnpm exec eslint .
+    pnpm exec tsc --noEmit
 
 fix:
-    bun run biome check --write --unsafe .
-    bun run prettier --write --list-different "**/*.{md,sql}"
-    bun run eslint --fix .
-    bun run tsc --noEmit
+    pnpm exec biome check --write --unsafe .
+    pnpm exec prettier --write --list-different "**/*.{md,sql}"
+    pnpm exec eslint --fix .
+    pnpm exec tsc --noEmit
 
 update:
-    bun update --interactive
-    bun run bimee migrate --write
+    pnpm update --interactive
+    pnpm exec biome migrate --write

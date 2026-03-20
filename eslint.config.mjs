@@ -47,9 +47,6 @@ export default tseslint.config(
       // Check namespaces export used functionality (redundant with tsc)
       "import-x/namespace": runHeavyChecks ? "warn" : "off",
     },
-    settings: {
-      "import-x/core-modules": ["bun:test"],
-    },
   },
 
   // ********** Prettier settings **********

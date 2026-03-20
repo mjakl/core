@@ -1,5 +1,5 @@
-import { describe, expect, test } from "bun:test";
 import { expectType } from "ts-expect";
+import { describe, expect, test } from "vitest";
 import { s } from "./strings";
 
 describe("s template literal tag", () => {

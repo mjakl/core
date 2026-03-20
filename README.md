@@ -6,7 +6,7 @@ Shared ESLint, Prettier, and Biome configurations, plus common utilities for
 ## Installation
 
 ```bash
-bun add @mjakl/core
+pnpm add @mjakl/core
 ```
 
 All necessary ESLint and Prettier plugins are included as dependencies, so you

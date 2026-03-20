@@ -1,7 +1,7 @@
 {
   "name": "@mjakl/core",
   "description": "Shared Biome, ESLint, Prettier configs and utilities for @mjakl projects",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": "mjakl",
   "dependencies": {
     "@biomejs/biome": "2.4.8",

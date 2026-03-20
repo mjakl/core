@@ -186,6 +186,14 @@ Currently includes:
 
 ## Development Notes
 
+### Development Commands
+
+- `just fix` - auto-fix formatting and lint issues, then run fast type checks
+  via `tsgo`
+- `just qa` - mutating verification flow for local development (`fix` + tests)
+- `just qa-only` - read-only verification flow for pre-push / CI-style checks
+  (`lint` + tests, using `tsc`)
+
 ### Dependencies Architecture
 
 This package includes ESLint and Prettier plugins as regular dependencies rather

@@ -194,6 +194,12 @@ Currently includes:
 - `just qa-only` - read-only verification flow for pre-push / CI-style checks
   (`lint` + tests, using `tsc`)
 
+### Git Hooks
+
+Husky installs a `pre-push` hook that runs `just qa-only` and post-checkout,
+post-merge, and post-rewrite hooks that run `pnpm install` automatically when
+`package.json` or lockfile changes are detected across the ref change.
+
 ### Dependencies Architecture
 
 This package includes ESLint and Prettier plugins as regular dependencies rather

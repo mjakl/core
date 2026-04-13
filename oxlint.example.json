@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "extends": ["./node_modules/@mjakl/core/oxlint.base.json"],
+  "plugins": ["typescript", "import"],
+  "ignorePatterns": ["*", "!src/**", "!tests/**"],
+  "overrides": [
+    {
+      "files": ["src/**/*.{ts,tsx}"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["..", "../**"],
+                "message": "Use path aliases instead of parent-relative imports."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -27,6 +27,7 @@
     ".": "./src/index.ts",
     "./biome.json": "./biome.json",
     "./eslint.config.mjs": "./eslint.config.mjs",
+    "./oxlint.base.json": "./oxlint.base.json",
     "./prettier_nobiome.config.mjs": "./prettier_nobiome.config.mjs",
     "./prettier_biome.config.mjs": "./prettier_biome.config.mjs"
   },
@@ -34,6 +35,7 @@
     "src",
     "biome.json",
     "eslint.config.mjs",
+    "oxlint.base.json",
     "prettier_nobiome.config.mjs",
     "prettier_biome.config.mjs"
   ],

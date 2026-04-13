@@ -1,7 +1,7 @@
 # @mjakl/core
 
-Shared ESLint, Prettier, and Biome configurations, plus common utilities for
-@mjakl projects.
+Shared oxlint and Prettier configurations, plus common utilities for @mjakl
+projects.
 
 ## Installation
 
@@ -9,81 +9,52 @@ Shared ESLint, Prettier, and Biome configurations, plus common utilities for
 pnpm add @mjakl/core
 ```
 
-All necessary ESLint and Prettier plugins are included as dependencies, so you
-don't need to install them separately.
-
 ## Usage
 
-### ESLint Configuration (JavaScript)
+### Oxlint Configuration
 
-The ESLint config is exported as a JavaScript module. In your
-`eslint.config.mjs`:
+The shared oxlint baseline provides strict TypeScript linting with the
+`correctness` and `suspicious` categories enabled, curated pedantic / style /
+restriction rules, and sensible defaults for the `typescript` and `import`
+plugins.
 
-```javascript
-import coreConfig from "@mjakl/core/eslint.config.mjs";
-
-export default [
-  ...coreConfig,
-  // Your custom rules here
-];
-```
-
-#### Suggested local override: ban parent-relative imports with Biome
-
-Want to keep same-folder imports like `./foo` but forbid parent-relative imports
-like `../foo`? Add a project-level Biome rule:
+Create a project-level `.oxlintrc.json` that extends the shared base:
 
 ```json
 {
-  "extends": ["@mjakl/core/biome.json"],
-  "linter": {
-    "rules": {
-      "style": {
-        "noRestrictedImports": {
-          "level": "error",
-          "options": {
-            "patterns": [
-              {
-                "group": ["../**"],
-                "message": "Use alias or module imports instead of parent-relative imports."
-              }
-            ]
-          }
-        }
-      }
-    }
-  }
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "extends": ["./node_modules/@mjakl/core/oxlint.base.json"],
+  "plugins": ["typescript", "import"],
+  "ignorePatterns": ["*", "!src/**", "!tests/**"]
 }
 ```
 
-Use `["./**", "../**"]` if you want to ban all relative imports. Unlike the old
-ESLint plugin, Biome enforces the policy but does not auto-rewrite imports to
-your alias style.
+> **Note:** `plugins` must be declared in each project — oxlint overrides (does
+> not merge) the `plugins` field from the base config.
 
-#### Optional heavy checks
+Add project-specific rules or architecture boundary overrides as needed. See
+[`oxlint.example.json`](./oxlint.example.json) for a minimal working example
+with a `no-restricted-imports` override.
 
-Set `ESLINT_HEAVY_CHECKS=true` when running ESLint to enable slower rules such
-as the circular import detector, for example:
+#### What the base includes
 
-```bash
-ESLINT_HEAVY_CHECKS=true npm run lint
-```
-
-Leave the variable unset for regular local lint runs to keep them fast.
+- **Categories:** `correctness` and `suspicious` at `error` level (~250 rules)
+- **Plugins:** `typescript`, `import` with full type-aware checking
+- **Curated rules:** 55 additional pedantic, style, and restriction rules
+- **TS-file overrides:** disables JS-only rules redundant in TypeScript
+- **Disabled false-positive rules:**
+  - `no-unsafe-type-assertion` — too noisy for real-world `as` usage
+  - `no-unnecessary-type-arguments` — auto-fix breaks type inference
+  - `consistent-return` — conflicts with exhaustive TypeScript switches
+  - `no-shadow` — false positives on Kysely, vitest, and callback patterns
+  - `no-unmodified-loop-condition` — misses mutations in closures/callbacks
+  - `no-extraneous-class` — flags intentional prototype-only test classes
 
 ### Prettier Configuration
 
 Two Prettier configurations are available:
 
-#### For projects using Biome (recommended)
-
-```json
-{
-  "prettier": "@mjakl/core/prettier_biome.config.mjs"
-}
-```
-
-Or create your own `prettier.config.mjs`:
+#### For projects using oxfmt (recommended)
 
 ```javascript
 import coreConfig from "@mjakl/core/prettier_biome.config.mjs";
@@ -94,15 +65,7 @@ export default {
 };
 ```
 
-#### For projects not using Biome
-
-```json
-{
-  "prettier": "@mjakl/core/prettier_nobiome.config.mjs"
-}
-```
-
-Or create your own `prettier.config.mjs`:
+#### For standalone Prettier
 
 ```javascript
 import coreConfig from "@mjakl/core/prettier_nobiome.config.mjs";
@@ -113,15 +76,13 @@ export default {
 };
 ```
 
-### Biome Configuration
+### ESLint and Biome (deprecated)
 
-For projects using Biome for linting and formatting:
-
-```json
-{
-  "extends": ["@mjakl/core/biome.json"]
-}
-```
+The ESLint (`eslint.config.mjs`) and Biome (`biome.json`) configurations are
+still included for existing projects that have not yet migrated to oxlint /
+oxfmt. **New projects should use the oxlint baseline above.** These
+configurations will be removed in a future version once all projects have
+migrated.
 
 ### Utilities
 
@@ -149,29 +110,22 @@ This package requires TypeScript 5+ as a peer dependency.
 
 ## Features
 
-### ESLint Configuration
+### Oxlint Configuration
 
-- TypeScript strict mode with type checking
-- Import sorting and validation
-- Plays nicely with custom rule layers in consuming projects
-- Prettier integration
-- Sensible defaults for modern TypeScript projects
-
-### Biome Configuration
-
-- Fast, comprehensive linting and formatting
-- TypeScript support with strict rules
-- Import organization and validation
-- Consistent code style enforcement
+- TypeScript strict mode with full type-aware checking
+- `correctness` and `suspicious` categories enabled (~250 safety rules)
+- 55 curated pedantic, style, and restriction rules
+- Import ordering and validation via the `import` plugin
+- Extensible per-project via `extends` and `overrides`
 
 ### Prettier Configuration
 
 Two variants available:
 
-#### Biome-compatible version
+#### Formatter-compatible version
 
-- Minimal configuration that works with Biome
-- Focused on non-overlapping formatting rules
+- Minimal configuration that works alongside oxfmt or Biome
+- Focused on non-overlapping formatting rules (SQL, Tailwind, etc.)
 
 #### Standalone version
 
@@ -184,9 +138,9 @@ Two variants available:
 
 Currently includes:
 
-- `systemClock` - default implementation with `now`, `sleep`, and `monotonicMs`
-- `createClock(adapter)` - helper for building testable clock adapters
-- `sleep(ms)` - Promise-based sleep function (**deprecated**; use
+- `systemClock` — default implementation with `now`, `sleep`, and `monotonicMs`
+- `createClock(adapter)` — helper for building testable clock adapters
+- `sleep(ms)` — Promise-based sleep function (**deprecated**; use
   `systemClock.sleep` or `createClock`)
 - String utilities (check src/utils/strings.ts for available functions)
 
@@ -194,10 +148,10 @@ Currently includes:
 
 ### Development Commands
 
-- `just fix` - auto-fix formatting and lint issues, then run fast type checks
+- `just fix` — auto-fix formatting and lint issues, then run fast type checks
   via `tsgo`
-- `just qa` - mutating verification flow for local development (`fix` + tests)
-- `just qa-only` - read-only verification flow for pre-push / CI-style checks
+- `just qa` — mutating verification flow for local development (`fix` + tests)
+- `just qa-only` — read-only verification flow for pre-push / CI-style checks
   (`lint` + tests, using `tsc`)
 
 ### Git Hooks
@@ -205,19 +159,3 @@ Currently includes:
 Husky installs a `pre-push` hook that runs `just qa-only` and post-checkout,
 post-merge, and post-rewrite hooks that run `pnpm install` automatically when
 `package.json` or lockfile changes are detected across the ref change.
-
-### Dependencies Architecture
-
-This package includes ESLint and Prettier plugins as regular dependencies rather
-than peer dependencies. While this means the package isn't truly
-"zero-dependency" for users who only need the utilities, this approach was
-chosen because:
-
-1. The ESLint and Prettier configs directly import their required plugins
-2. This ensures configs work immediately upon installation without manual plugin
-   setup
-3. It simplifies the developer experience - one install gets everything working
-
-If the dependency footprint becomes a concern as more tools are added, the
-package can be migrated to a monorepo structure with separate packages for
-utilities (@mjakl/core) and configurations (@mjakl/core-config).

@@ -1,36 +1,8 @@
 {
   "name": "@mjakl/core",
-  "description": "Shared Biome, ESLint, Prettier configs and utilities for @mjakl projects",
   "version": "0.2.0",
+  "description": "Shared oxlint, Prettier configs and utilities for @mjakl projects",
   "author": "mjakl",
-  "dependencies": {
-    "@biomejs/biome": "2.4.8",
-    "@eslint/js": "10.0.1",
-    "@ianvs/prettier-plugin-sort-imports": "4.7.1",
-    "eslint": "10.0.3",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-import-resolver-typescript": "4.4.4",
-    "eslint-plugin-import-x": "4.16.2",
-    "prettier": "3.8.1",
-    "prettier-plugin-sql": "0.20.0",
-    "prettier-plugin-tailwindcss": "0.7.2",
-    "typescript-eslint": "8.57.1"
-  },
-  "devDependencies": {
-    "@typescript/native-preview": "7.0.0-dev.20260320.1",
-    "@vitest/coverage-v8": "^4.1.0",
-    "husky": "^9.1.7",
-    "ts-expect": "1.3.0",
-    "vitest": "^4.1.0"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./biome.json": "./biome.json",
-    "./eslint.config.mjs": "./eslint.config.mjs",
-    "./oxlint.base.json": "./oxlint.base.json",
-    "./prettier_nobiome.config.mjs": "./prettier_nobiome.config.mjs",
-    "./prettier_biome.config.mjs": "./prettier_biome.config.mjs"
-  },
   "files": [
     "src",
     "biome.json",
@@ -39,12 +11,62 @@
     "prettier_nobiome.config.mjs",
     "prettier_biome.config.mjs"
   ],
-  "peerDependencies": {
-    "typescript": "^5.9.3"
-  },
   "type": "module",
-  "packageManager": "pnpm@10.32.1",
+  "exports": {
+    ".": "./src/index.ts",
+    "./biome.json": "./biome.json",
+    "./eslint.config.mjs": "./eslint.config.mjs",
+    "./oxlint.base.json": "./oxlint.base.json",
+    "./prettier_nobiome.config.mjs": "./prettier_nobiome.config.mjs",
+    "./prettier_biome.config.mjs": "./prettier_biome.config.mjs"
+  },
   "scripts": {
     "prepare": "husky"
-  }
+  },
+  "dependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "4.7.1",
+    "prettier": "3.8.1",
+    "prettier-plugin-sql": "0.20.0",
+    "prettier-plugin-tailwindcss": "0.7.2"
+  },
+  "devDependencies": {
+    "@typescript/native-preview": "7.0.0-dev.20260320.1",
+    "@vitest/coverage-v8": "^4.1.0",
+    "husky": "^9.1.7",
+    "oxfmt": "^0.44.0",
+    "oxlint": "^1.59.0",
+    "oxlint-tsgolint": "^0.20.0",
+    "ts-expect": "1.3.0",
+    "vitest": "^4.1.0"
+  },
+  "peerDependencies": {
+    "@biomejs/biome": ">=2.0.0",
+    "eslint": ">=9.0.0",
+    "eslint-config-prettier": ">=10.0.0",
+    "eslint-import-resolver-typescript": ">=4.0.0",
+    "eslint-plugin-import-x": ">=4.0.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": ">=8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@biomejs/biome": {
+      "optional": true
+    },
+    "eslint": {
+      "optional": true
+    },
+    "eslint-config-prettier": {
+      "optional": true
+    },
+    "eslint-import-resolver-typescript": {
+      "optional": true
+    },
+    "eslint-plugin-import-x": {
+      "optional": true
+    },
+    "typescript-eslint": {
+      "optional": true
+    }
+  },
+  "packageManager": "pnpm@10.32.1"
 }

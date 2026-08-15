@@ -11,6 +11,7 @@
   "semi": true,
   "arrowParens": "always",
   "bracketSameLine": false,
+  "ignorePatterns": ["dist/**"],
   "bracketSpacing": true,
   "overrides": [
     {

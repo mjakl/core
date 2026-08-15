@@ -1,6 +1,6 @@
 import { expectType } from "ts-expect";
 import { describe, expect, test } from "vitest";
-import { invariant } from "./invariant";
+import { invariant } from "../src/utils/invariant.js";
 
 describe("invariant", () => {
   test("does nothing when condition is truthy", () => {
@@ -31,5 +31,6 @@ describe("invariant", () => {
     const value: string | undefined = "value";
     invariant(value);
     expectType<string>(value);
+    expect(value).toBe("value");
   });
 });

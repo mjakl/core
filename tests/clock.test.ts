@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { createClock, systemClock } from "./clock";
+import { createClock, systemClock } from "../src/utils/clock.js";
 
 describe("clock", () => {
   test("systemClock exposes concrete implementations", async () => {

@@ -2,6 +2,10 @@
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "extends": ["./node_modules/@mjakl/core/oxlint.base.json"],
   "plugins": ["typescript", "import"],
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  },
   "ignorePatterns": ["*", "!src/**", "!tests/**"],
   "overrides": [
     {

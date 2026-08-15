@@ -7,9 +7,9 @@
  */
 export default {
   plugins: [
-    "@ianvs/prettier-plugin-sort-imports",
-    "prettier-plugin-sql",
-    "prettier-plugin-tailwindcss",
+    import.meta.resolve("@ianvs/prettier-plugin-sort-imports"),
+    import.meta.resolve("prettier-plugin-sql"),
+    import.meta.resolve("prettier-plugin-tailwindcss"),
   ],
   proseWrap: "preserve",
   overrides: [

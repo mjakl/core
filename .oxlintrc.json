@@ -1,6 +1,12 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "extends": ["./oxlint.base.json"],
-  "plugins": ["typescript", "import"],
+  "plugins": ["typescript", "import", "vitest"],
+  "options": {
+    "denyWarnings": true,
+    "reportUnusedDisableDirectives": "error",
+    "typeAware": true,
+    "typeCheck": true
+  },
   "ignorePatterns": ["*", "!src/**", "!tests/**"]
 }

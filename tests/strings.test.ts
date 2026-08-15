@@ -1,6 +1,6 @@
 import { expectType } from "ts-expect";
 import { describe, expect, test } from "vitest";
-import { s } from "./strings";
+import { s } from "../src/utils/strings.js";
 
 describe("s template literal tag", () => {
   test("converts primitives to strings", () => {
@@ -21,14 +21,15 @@ describe("s template literal tag", () => {
     );
   });
 
-  // This is a type-level test that doesn't actually run
   test("type constraints prevent objects and arrays", () => {
     // @ts-expect-error - Objects should be rejected by type checking
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    s`Object: ${{ key: "value" }}`;
+    const objectResult = s`Object: ${{ key: "value" }}`;
 
     // @ts-expect-error - Arrays should be rejected by type checking
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    s`Array: ${[1, 2, 3]}`;
+    const arrayResult = s`Array: ${[1, 2, 3]}`;
+
+    // TypeScript prevents these calls, but runtime coercion remains predictable.
+    expect(objectResult).toBe("Object: [object Object]");
+    expect(arrayResult).toBe("Array: 1,2,3");
   });
 });

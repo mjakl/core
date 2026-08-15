@@ -5,9 +5,18 @@ projects.
 
 ## Installation
 
-```bash
-pnpm add @mjakl/core
+Pin a Git tag so dependency updates are deliberate and reproducible:
+
+```json
+{
+  "dependencies": {
+    "@mjakl/core": "github:mjakl/core#v0.3.0"
+  }
+}
 ```
+
+Git tags and the `version` in `package.json` use the same version number. Core
+requires Node.js 24 or newer.
 
 ## Usage
 
@@ -25,12 +34,17 @@ Create a project-level `.oxlintrc.json` that extends the shared base:
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "extends": ["./node_modules/@mjakl/core/oxlint.base.json"],
   "plugins": ["typescript", "import"],
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  },
   "ignorePatterns": ["*", "!src/**", "!tests/**"]
 }
 ```
 
 > **Note:** `plugins` must be declared in each project — oxlint overrides (does
-> not merge) the `plugins` field from the base config.
+> not merge) the `plugins` field from the base config. Type-aware options belong
+> in the root configuration, so declare them there explicitly too.
 
 Add project-specific rules or architecture boundary overrides as needed. See
 [`oxlint.example.json`](./oxlint.example.json) for a minimal working example
@@ -39,7 +53,8 @@ with a `no-restricted-imports` override.
 #### What the base includes
 
 - **Categories:** `correctness` and `suspicious` at `error` level (~250 rules)
-- **Plugins:** `typescript`, `import` with full type-aware checking
+- **Plugins:** `typescript` and `import`, with type-aware rules activated by the
+  root options shown above
 - **Curated rules:** 55 additional pedantic, style, and restriction rules
 - **TS-file overrides:** disables JS-only rules redundant in TypeScript
 - **Disabled false-positive rules:**
@@ -106,13 +121,31 @@ const current = systemClock.now();
 
 ## Peer Dependencies
 
-This package requires TypeScript 5+ as a peer dependency.
+The utility types require TypeScript 5.9 or newer. Projects using the shared
+Oxlint configuration should install Oxlint 1.78 or newer and `oxlint-tsgolint`
+7.0.2001 or newer. Projects using a shared Prettier configuration should install
+Prettier 3.9 or newer. These tooling peers are optional for utility-only
+consumers.
+
+Legacy Biome and ESLint peers remain optional while consumers migrate away from
+those configurations. TypeScript 7 does not expose the compiler API required by
+`typescript-eslint`; projects that need both should install the toolchains
+side-by-side:
+
+```json
+{
+  "devDependencies": {
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "typescript": "npm:@typescript/typescript6@^6.0.2"
+  }
+}
+```
 
 ## Features
 
 ### Oxlint Configuration
 
-- TypeScript strict mode with full type-aware checking
+- Type-aware TypeScript rules when enabled in the consumer's root config
 - `correctness` and `suspicious` categories enabled (~250 safety rules)
 - 55 curated pedantic, style, and restriction rules
 - Import ordering and validation via the `import` plugin
@@ -125,13 +158,14 @@ Two variants available:
 #### Formatter-compatible version
 
 - Minimal configuration that works alongside oxfmt or Biome
-- Focused on non-overlapping formatting rules (SQL, Tailwind, etc.)
+- Focused on non-overlapping SQL and Markdown formatting
 
 #### Standalone version
 
 - Import sorting with `@ianvs/prettier-plugin-sort-imports`
 - SQL formatting support for PostgreSQL
 - Markdown prose wrapping
+- Tailwind class sorting
 - Comprehensive formatting rules
 
 ### Utilities
@@ -140,22 +174,26 @@ Currently includes:
 
 - `systemClock` — default implementation with `now`, `sleep`, and `monotonicMs`
 - `createClock(adapter)` — helper for building testable clock adapters
-- `sleep(ms)` — Promise-based sleep function (**deprecated**; use
-  `systemClock.sleep` or `createClock`)
-- String utilities (check src/utils/strings.ts for available functions)
+- `invariant(condition, message?)` — assertion helper with TypeScript narrowing
+- String utilities, including the safe interpolation tag `s`
 
 ## Development Notes
 
 ### Development Commands
 
-- `just fix` — auto-fix formatting and lint issues, then run fast type checks
-  via `tsgo`
-- `just qa` — mutating verification flow for local development (`fix` + tests)
+- `just setup` — install dependencies and configure this checkout's Git hooks
+- `just build` — generate the committed JavaScript and declaration files
+- `just fix` — auto-fix files, run TypeScript 7, and regenerate the package
+- `just qa` — mutating verification flow for local development
 - `just qa-only` — read-only verification flow for pre-push / CI-style checks
-  (`lint` + tests, using `tsc`)
+- `just package-check` — verify the packed artifact in an isolated consumer
 
 ### Git Hooks
 
-Husky installs a `pre-push` hook that runs `just qa-only` and post-checkout,
-post-merge, and post-rewrite hooks that run `pnpm install` automatically when
-`package.json` or lockfile changes are detected across the ref change.
+Run `just setup` once after cloning to install Husky's hooks. The `pre-push`
+hook runs `just qa-only`; post-checkout, post-merge, and post-rewrite hooks run
+`pnpm install` when dependency manifests change.
+
+Core intentionally has no dependency lifecycle script. This keeps installation
+from a Git tag non-executable and avoids pnpm build-script approval in every
+consumer.

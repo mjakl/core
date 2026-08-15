@@ -4,7 +4,7 @@
  * @type {import("prettier").Config}
  */
 export default {
-  plugins: ["prettier-plugin-sql"],
+  plugins: [import.meta.resolve("prettier-plugin-sql")],
   proseWrap: "preserve",
   overrides: [
     {
